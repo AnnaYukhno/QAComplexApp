@@ -126,3 +126,114 @@ class TestStartPage:
         sleep(2)
 
         driver.close()
+
+    def test_invalid_username(self):
+        """
+        - Pre-condition:
+            Open start page
+        - Steps:
+            Fill invalid username
+            Verify the error message
+        """
+
+        # Open start page
+        driver = webdriver.Chrome(executable_path="C:\Development\QAComplexApp\chromedriver.exe")
+        driver.get("https://qa-complexapp.onrender.com")
+        self.log.info('Start page was opened')
+
+        # Fill invalid username
+        username_rg_field = driver.find_element(by=By.XPATH, value='.//input[@id="username-register"]')
+        username_rg_field.clear()
+
+        length_username_rg = 1
+        username_rg = ''
+        for i in range(length_username_rg):
+            username_rg += ''.join(self.random_str() + self.random_num())
+        username_rg_field.send_keys(username_rg)
+        self.log.info('Username was filled')
+        sleep(2)
+
+        # Verify the error message
+        assert 'Username must be at least 3 characters.' in driver.page_source
+        self.log.info("Invalid username was verified")
+        driver.close()
+
+    def test_valid_username(self):
+        """
+        - Pre-condition:
+            Open start page
+        - Steps:
+            Fill valid username
+            Verify the error message isn't displayed
+        """
+
+        # Open start page
+        driver = webdriver.Chrome(executable_path="C:\Development\QAComplexApp\chromedriver.exe")
+        driver.get("https://qa-complexapp.onrender.com")
+        self.log.info('Start page was opened')
+
+        # Fill valid username
+        username_rg_field = driver.find_element(by=By.XPATH, value='.//input[@id="username-register"]')
+        username_rg_field.clear()
+
+        length_username_rg = 2
+        username_rg = ''
+        for i in range(length_username_rg):
+            username_rg += ''.join(self.random_str() + self.random_num())
+        username_rg_field.send_keys(username_rg)
+        self.log.info('Username was filled')
+        sleep(2)
+
+        # Verify the error message isn't displayed
+        assert not 'Username must be at least 3 characters.' in driver.page_source
+        self.log.info("Invalid username wasn't verified")
+        driver.close()
+
+    def test_empty_credentials(self):
+        """
+        - Pre-condition:
+            open start page
+        - Steps:
+            fill username
+            leave empty email
+            leave empty password
+            click SignUp button
+            verify error messages
+        """
+
+        # Open start page
+        driver = webdriver.Chrome(executable_path="C:\Development\QAComplexApp\chromedriver.exe")
+        driver.get("https://qa-complexapp.onrender.com")
+        self.log.info('Start page was opened')
+
+        # Fill username
+        username_rg_field = driver.find_element(by=By.XPATH, value='.//input[@id="username-register"]')
+        username_rg_field.clear()
+
+        length_username_rg = 2
+        username_rg = ''
+        for i in range(length_username_rg):
+            username_rg += ''.join(self.random_str() + self.random_num())
+        username_rg_field.send_keys(username_rg)
+        self.log.info('Username was filled')
+        sleep(2)
+
+        # Leave empty email
+        email_rg_field = driver.find_element(by=By.XPATH, value='.//input[@id="email-register"]')
+        email_rg_field.clear()
+        self.log.info('Email was empty')
+
+        # Leave empty password
+        password_rg_field = driver.find_element(by=By.XPATH, value='.//input[@id="password-register"]')
+        password_rg_field.clear()
+        self.log.info('Password was empty')
+
+        # Click SignUp button
+        driver.find_element(by=By.XPATH, value=".//button[@type='submit']").click()
+        self.log.info("SignUp button was click")
+
+        # Verify error messages
+        assert 'You must provide a valid email address.' in driver.page_source
+        assert 'Password must be at least 12 characters.' in driver.page_source
+        self.log.info("Invalid email, password were verified")
+        driver.close()
