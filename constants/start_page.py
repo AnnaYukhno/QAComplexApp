@@ -4,9 +4,9 @@ class StartPageConst:
     # Sign In
     SIGN_IN_USERNAME_FIELD_XPATH = ".// input[@placeholder = 'Username']"
     SIGN_IN_PASSWORD_FIELD_XPATH = ".//input[@placeholder='Password']"
-    SIGN_IN_BUTTON_XPATH = ".//button[text()='Sing In']"
+    SIGN_IN_BUTTON_XPATH = ".//button[text()='Sign In']"
     SIGN_IN_ERROR_XPATH = ".//div[@class='alert alert-danger text-center']"
-    SIGN_IN_ERROR_TEXT = 'Error'
+    SIGN_IN_ERROR_TEXT = 'Invalid username pasword'
 
     # Sign Up
     SIGN_UP_USERNAME_FIELD_XPATH = './/input[@id="username-register"]'

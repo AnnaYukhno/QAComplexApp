@@ -1,6 +1,5 @@
 """Tests related to start page"""
 import logging
-from time import sleep
 
 from pages import utils
 
@@ -20,7 +19,6 @@ class TestStartPage:
         # Login as invalid user
         start_page.sign_in(username="test123", password="pwd123")
         self.log.info('Logged in as invalid user')
-        sleep(2)
 
         # Verify error
         start_page.verify_sign_in_error()
@@ -45,7 +43,7 @@ class TestStartPage:
         hello_page.verify_sign_up_message(username=username)
         self.log.info('Registration was verified')
 
-    def test_invalid_username(self, start_page):
+    def test_invalid_username(self, start_page, verify=False):
         """
         - Steps:
             - Prepare test data
@@ -56,9 +54,8 @@ class TestStartPage:
         username = utils.random_text(length=1)
 
         # Fill invalid username
-        start_page.sign_up(username=username, email="", password="")
+        start_page.sign_up(username=username, email="", password="", verify=False)
         self.log.info('Username was filled')
-        sleep(1)
 
         # Verify the error message
         assert 'Username must be at least 3 characters.' in start_page.driver.page_source
@@ -75,9 +72,8 @@ class TestStartPage:
         username = utils.random_text(length=2)
 
         # Fill invalid username
-        start_page.sign_up(username=username, email="", password="")
+        start_page.sign_up(username=username, email="", password="", verify=False)
         self.log.info('Username was filled')
-        sleep(1)
 
         # Verify the error message
         assert not 'Username must be at least 3 characters.' in start_page.driver.page_source
@@ -95,9 +91,8 @@ class TestStartPage:
         username = utils.random_text(length=2)
 
         # Fill username and leave email, password empty
-        start_page.sign_up(username=username, email="", password="")
+        start_page.sign_up(username=username, email="", password="", verify=False)
         self.log.info('Filled username and left email, password empty')
-        sleep(2)
 
         # Verify error messages
         assert 'You must provide a valid email address.' in start_page.driver.page_source
