@@ -1,9 +1,13 @@
 """Tests related to start page"""
 import logging
 
+import pytest
+
+from constants.base import BaseConstants
 from pages import utils
 
 
+@pytest.mark.parametrize("browser", [BaseConstants.CHROME, BaseConstants.FIREFOX])
 class TestStartPage:
     """Stores tests for start page base functionality"""
 
@@ -17,7 +21,7 @@ class TestStartPage:
         """
 
         # Login as invalid user
-        start_page.sign_in(username="test123", password="pwd123")
+        start_page.header.sign_in(username="test123", password="pwd123")
         self.log.info('Logged in as invalid user')
 
         # Verify error
@@ -43,7 +47,7 @@ class TestStartPage:
         hello_page.verify_sign_up_message(username=username)
         self.log.info('Registration was verified')
 
-    def test_invalid_username(self, start_page, verify=False):
+    def test_invalid_username(self, start_page):
         """
         - Steps:
             - Prepare test data
