@@ -4,17 +4,19 @@ import logging
 import pytest
 
 from constants.base import BaseConstants
+from constants.create_post_page import CreatePostPageConsts
 from pages import utils
 
 
 @pytest.mark.parametrize("browser", [BaseConstants.CHROME, BaseConstants.FIREFOX])
-@pytest.mark.parametrize("unique", [True, False])
-@pytest.mark.parametrize("privacy", ['All Users', 'One Person', 'Group Message'])
 class TestCreatePostPage:
     """Stores tests for create post page base functionality"""
 
     log = logging.getLogger("[CreatePostPage]")
 
+    @pytest.mark.parametrize("unique", [True, False])
+    @pytest.mark.parametrize("privacy", [CreatePostPageConsts.PUBLIC_PRIVACY, CreatePostPageConsts.PRIVATE_PRIVACY,
+                                         CreatePostPageConsts.GROUP_PRIVACY])
     def test_create_post_with_settings(self, start_page, unique, privacy):
         """
         - Steps:

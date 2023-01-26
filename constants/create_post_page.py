@@ -8,3 +8,7 @@ class CreatePostPageConsts:
     PRIVATE_POST_OPTION_XPATH = ".//option[@value='One Person']"
     GROUP_POST_OPTION_XPATH = ".//option[@value='Group Message']"
     SAVE_NEW_POST_BUTTON_XPATH = ".//button[@class='btn btn-primary']"
+
+    PUBLIC_PRIVACY = 'All Users'
+    PRIVATE_PRIVACY = 'One Person'
+    GROUP_PRIVACY = 'Group Message'

@@ -15,7 +15,7 @@ class CreatePostPage(BasePage):
         self.header = Header(self.driver)
         self.log = logging.getLogger('[CreatePostPage]')
 
-    def create_post(self, unique_post=True, post_privacy='Загальнодоступне'):
+    def create_post(self, unique_post, post_privacy):
         """Create post using provided value"""
         # Fill fields
         self.fill_fields(xpath=self.const.TITLE_INPUT_XPATH, value=utils.random_post(5))
@@ -28,11 +28,11 @@ class CreatePostPage(BasePage):
             assert not self.driver.find_element('xpath', self.const.UNIQUE_POST_CHECKBOX_XPATH).is_selected()
 
         # Choose SelectValue down-menu
-        if post_privacy == 'All Users':
+        if post_privacy == self.const.PUBLIC_PRIVACY:
             self.click(self.const.PUBLIC_POST_OPTION_XPATH)
-        elif post_privacy == 'One Person':
+        elif post_privacy == self.const.PRIVATE_PRIVACY:
             self.click(self.const.PRIVATE_POST_OPTION_XPATH)
-        elif post_privacy == 'Group Message':
+        elif post_privacy == self.const.GROUP_PRIVACY:
             self.click(self.const.GROUP_POST_OPTION_XPATH)
         else:
             self.click(self.const.PUBLIC_POST_OPTION_XPATH)
