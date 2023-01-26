@@ -2,9 +2,6 @@ class StartPageConst:
     """Stores  constants related to start page"""
 
     # Sign In
-    SIGN_IN_USERNAME_FIELD_XPATH = ".// input[@placeholder = 'Username']"
-    SIGN_IN_PASSWORD_FIELD_XPATH = ".//input[@placeholder='Password']"
-    SIGN_IN_BUTTON_XPATH = ".//button[text()='Sign In']"
     SIGN_IN_ERROR_XPATH = ".//div[@class='alert alert-danger text-center']"
     SIGN_IN_ERROR_TEXT = 'Invalid username pasword'
 

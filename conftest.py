@@ -1,14 +1,13 @@
 import pytest
-from selenium import webdriver
 
-from constants.base import BaseConstants
 from pages.start_page import StartPage
+from pages.utils import create_driver
 
 
 @pytest.fixture()
-def driver():
+def driver(browser):
     """Create selenium driver"""
-    driver = webdriver.Chrome(executable_path=BaseConstants.DRIVER_PATH)
+    driver = create_driver(browser=browser)
     yield driver
     driver.close()
 
@@ -16,6 +15,4 @@ def driver():
 @pytest.fixture()
 def start_page(driver):
     """Create start page object"""
-    driver.get(BaseConstants.URL)
-    driver.implicitly_wait(1)
     return StartPage(driver)
