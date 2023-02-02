@@ -25,13 +25,13 @@ class StartPage(BasePage):
         self.click(self.const.SIGN_UP_BUTTON_XPATH)
         assert not self.is_element_exists(self.const.SIGN_UP_BUTTON_XPATH)
 
-    def sign_up(self, username, email, password, verify=True):
+    def sign_up(self, user, verify=True):
         """Sign up using provided values"""
 
         # Fill fields
-        self.fill_fields(xpath=self.const.SIGN_UP_USERNAME_FIELD_XPATH, value=username)
-        self.fill_fields(xpath=self.const.SIGN_UP_EMAIL_FIELD_XPATH, value=email)
-        self.fill_fields(xpath=self.const.SIGN_UP_PASSWORD_FIELD_XPATH, value=password)
+        self.fill_fields(xpath=self.const.SIGN_UP_USERNAME_FIELD_XPATH, value=user.username)
+        self.fill_fields(xpath=self.const.SIGN_UP_EMAIL_FIELD_XPATH, value=user.email)
+        self.fill_fields(xpath=self.const.SIGN_UP_PASSWORD_FIELD_XPATH, value=user.password)
 
         # Click SignUp button
         if verify:
@@ -40,3 +40,7 @@ class StartPage(BasePage):
             return HelloPage(self.driver)
         else:
             self.click(self.const.SIGN_UP_BUTTON_XPATH)
+
+    def verify_sign_in_exists(self):
+        """Verify that SignIn button is present on the page"""
+        assert self.is_element_exists(xpath=self.header.const.SIGN_IN_BUTTON_XPATH)

@@ -19,6 +19,14 @@ class BasePage:
             )
         )
 
+    def wait_until_displayed_elements(self, by, xpath):
+        """Wait until element is displayed and return it, else raise an exception"""
+        return self.waiter.until(
+            method=expected_conditions.visibility_of_all_elements_located(
+                (by, xpath)
+            )
+        )
+
     def wait_until_clickable(self, by, xpath):
         """Wait until element is clickable and return it, else raise an exception"""
         return self.waiter.until(
@@ -53,7 +61,10 @@ class BasePage:
         """Find and click on the element by provided xpath"""
         element = self.wait_until_clickable(by=By.XPATH, xpath=xpath).click()
 
-    def compare_element_text(self, xpath, text):
+    def compare_element_text(self, xpath, text, strip=False):
         """Compare element text to provided one"""
         element_text = self.wait_until_displayed(by=By.XPATH, xpath=xpath)
-        return element_text.text == text
+        if strip:
+            return element_text.text.strip() == text
+        else:
+            return element_text.text == text
