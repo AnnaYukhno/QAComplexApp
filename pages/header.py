@@ -20,3 +20,17 @@ class Header(BasePage):
 
         # Click on SignIn button
         self.click(xpath=self.const.SIGN_IN_BUTTON_XPATH)
+
+    def sign_out(self):
+        """Sign out from the account"""
+        self.click(xpath=self.const.SIGN_OUT_BUTTON_XPATH)
+
+        from pages.start_page import StartPage
+        return StartPage(self.driver)
+
+    def navigate_to_the_chat(self):
+        """Open chat window"""
+        self.click(xpath=self.const.CHAT_BUTTON_XPATH)
+
+        from pages.chat import Chat
+        return Chat(self.driver)
